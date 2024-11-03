@@ -15,12 +15,12 @@ app.MapGet("time/utc", () => Results.Ok(DateTime.UtcNow));
 
 // GET EST
 
-app.MapGet("time/est", () =>
-{
-    var estTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-    var estTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, estTimeZone);
-    return Results.Ok(estTime);
-});
+//app.MapGet("time/est", () =>
+//{
+//   var estTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+// var estTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, estTimeZone);
+//return Results.Ok(estTime);
+// });
 
 
 await app.RunAsync();
