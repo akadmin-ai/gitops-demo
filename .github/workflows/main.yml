@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - qa
+    - dev
 
 env:
   AZURE_WEBAPP_NAME: demo-test-webapp-qa
@@ -35,7 +35,7 @@ jobs:
         run: |
           docker pull node:12 # Example of a vulnerable image version
           docker run --rm node:12 --version
-
+      
       - name: Deployment
         uses: azure/webapps-deploy@v2
         with:
