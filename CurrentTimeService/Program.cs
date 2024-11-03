@@ -13,14 +13,13 @@ app.UseHttpsRedirection();
 // GET UTC
 app.MapGet("time/utc", () => Results.Ok(DateTime.UtcNow));
 
-// GET EST
 
-app.MapGet("time/est", () =>
+// GET PST
+app.MapGet("time/pst", () =>
 {
-    var estTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-    var estTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, estTimeZone);
-    return Results.Ok(estTime);
+    var pstTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+    var pstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, pstTimeZone);
+    return Results.Ok(pstTime);
 });
-
 
 await app.RunAsync();
