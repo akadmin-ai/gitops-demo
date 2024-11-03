@@ -22,5 +22,13 @@ app.MapGet("time/est", () =>
     return Results.Ok(estTime);
 });
 
+// GET PST
+app.MapGet("time/pst", () =>
+{
+    var pstTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+    var pstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, pstTimeZone);
+    return Results.Ok(pstTime);
+});
+
 
 await app.RunAsync();
