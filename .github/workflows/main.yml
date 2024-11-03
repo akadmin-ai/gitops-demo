@@ -41,9 +41,10 @@ jobs:
       - name: Create Pull Request to QA
         uses: peter-evans/create-pull-request@v5
         with:
-            token: ${{ secrets.GITHUB_TOKEN }}
+            token: ${{ secrets.MY_GITOPS_TOKEN }}
             commit-message: "Merge dev into qa"
             title: "Pull Request: Merge dev into qa"
             body: "This PR merges the changes from dev into qa."
             base: qa
             branch: dev-to-qa-automated-pr
+            
