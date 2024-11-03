@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy dotnet core project to Azure Function App - demo-gitops
+name: Build and Deploy .NET Core Project to Azure Function App
 
 on:
   push:
@@ -10,18 +7,18 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '6.0.x' # set this to the dotnet version to use
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'  # Set this to the path to your web app project
+  DOTNET_VERSION: '6.0.x'  # Set this to the .NET version to use
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
-      - name: 'Checkout GitHub Action'
+      - name: 'Checkout Code'
         uses: actions/checkout@v4
 
-      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+      - name: Setup .NET ${{ env.DOTNET_VERSION }} Environment
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
@@ -41,3 +38,20 @@ jobs:
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_42CA608581404CBF8FE7BCAC2BD5A0B5 }}
+
+  create_pr_job:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy  # This job runs after the build-and-deploy job
+    if: github.ref == 'refs/heads/fn_app'  # Ensure it only runs on fn_app branch
+    name: Create Pull Request to QA
+    steps:
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Merge fn_app into qa"
+          title: "Pull Request: Merge fn_app into qa"
+          body: "This PR merges the changes from fn_app into qa."
+          base: qa
+          head: fn_app
+          branch: fn_app-to-qa-automated-pr
