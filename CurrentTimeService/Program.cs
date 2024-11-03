@@ -14,6 +14,7 @@ app.UseHttpsRedirection();
 app.MapGet("time/utc", () => Results.Ok(DateTime.UtcNow));
 
 
+
 // GET PST
 app.MapGet("time/pst", () =>
 {
@@ -21,5 +22,6 @@ app.MapGet("time/pst", () =>
     var pstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, pstTimeZone);
     return Results.Ok(pstTime);
 });
+
 
 await app.RunAsync();
