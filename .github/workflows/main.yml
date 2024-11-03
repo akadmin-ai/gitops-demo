@@ -46,5 +46,4 @@ jobs:
             title: "Pull Request: Merge dev into qa"
             body: "This PR merges the changes from dev into qa."
             base: qa
-            head: dev
             branch: dev-to-qa-automated-pr
