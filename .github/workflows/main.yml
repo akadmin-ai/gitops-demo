@@ -4,7 +4,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - dev
+
+    - qa
+  pull_request:
+    branches:
+      - qa 
 
 env:
   AZURE_WEBAPP_NAME: demo-gitops-webapp-dev
