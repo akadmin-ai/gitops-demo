@@ -21,5 +21,13 @@ app.MapGet("time/pst", () =>
     return Results.Ok(pstTime);
 });
 
+// GET EST
+app.MapGet("time/est", () =>
+{
+    var estTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+    var estTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, estTimeZone);
+    return Results.Ok(estTime);
+});
+
 
 await app.RunAsync();
