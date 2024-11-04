@@ -5,10 +5,10 @@ on:
   push:
     branches:
 
-    - qa
+    - dev
   pull_request:
     branches:
-      - qa 
+      - dev
 
 env:
   AZURE_WEBAPP_NAME: demo-gitops-webapp-qa
