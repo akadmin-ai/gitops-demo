@@ -14,13 +14,13 @@ app.UseHttpsRedirection();
 app.MapGet("time/utc", () => Results.Ok(DateTime.UtcNow));
 
 
-// GET PST
-app.MapGet("time/pst", () =>
-{
-    var pstTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
-    var pstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, pstTimeZone);
-    return Results.Ok(pstTime);
-});
+// // GET PST
+// app.MapGet("time/pst", () =>
+// {
+//     var pstTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+//     var pstTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, pstTimeZone);
+//     return Results.Ok(pstTime);
+// });
 
 
 await app.RunAsync();
