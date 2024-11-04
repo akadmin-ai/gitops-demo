@@ -31,13 +31,6 @@ jobs:
       - name: Publish
         run: dotnet publish ./CurrentTimeService.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         
-      - name: Pull Vulnerable Docker Image
-        run: |
-          docker pull node:12 # Example of a vulnerable image version
-          docker run --rm node:12 --version
-      - name: Log Fake Secret
-        run: |
-            echo "Logging the fake secret for testing: $FAKE_SECRET"
             
       - name: Deployment
         uses: azure/webapps-deploy@v2
