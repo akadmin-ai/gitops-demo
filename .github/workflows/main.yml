@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
   push:
     branches:
+
     - qa
   pull_request:
     branches:
       - qa 
 
 env:
-  AZURE_WEBAPP_NAME: demo-test-webapp-qa
+  AZURE_WEBAPP_NAME: demo-gitops-webapp-dev
   AZURE_WEBAPP_PACKAGE_PATH: "./publish"
 
 jobs:
@@ -34,11 +35,12 @@ jobs:
       - name: Publish
         run: dotnet publish ./CurrentTimeService.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         
+            
       - name: Deployment
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
 
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_QA }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE_DEV }}
           package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
 
