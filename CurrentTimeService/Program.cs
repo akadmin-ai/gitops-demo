@@ -22,12 +22,12 @@ app.MapGet("time/pst", () =>
     return Results.Ok(pstTime);
 });
 
-// GET SGT
-app.MapGet("time/sgt", () =>
+// GET est
+app.MapGet("time/est", () =>
 {
-    var sgtTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Time");
-    var sgtTime = TimeZoneInfo.ConvertTimeFromSgt(DateTime.SgtNow, sgtTimeZone);
-    return Results.Ok(sgtTime);
+    var estTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+    var estTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, estTimeZone);
+    return Results.Ok(estTime);
 });
 
 
