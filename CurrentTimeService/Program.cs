@@ -22,5 +22,13 @@ app.MapGet("time/pst", () =>
     return Results.Ok(pstTime);
 });
 
+// GET SGT
+app.MapGet("time/sgt", () =>
+{
+    var sgtTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Singapore Time");
+    var sgtTime = TimeZoneInfo.ConvertTimeFromSgt(DateTime.SgtNow, sgtTimeZone);
+    return Results.Ok(sgtTime);
+});
+
 
 await app.RunAsync();
